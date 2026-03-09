@@ -1,0 +1,23 @@
+
+
+.logo-img {
+  height: 65px;   
+  width: auto;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  gap: 25px; 
+}
+
+.nav-center .nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #f8f9fa;
+}
+
+.nav-center .nav-link:hover {
+  color: #0d6efd; 
+  text-decoration: underline;
+}
