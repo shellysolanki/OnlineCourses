@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import courses from "../pages/Courses.jsx";
 
 const Admin = () => {
   return (
@@ -19,7 +20,7 @@ const Admin = () => {
         <h2>Admin Panel</h2><br/>
         <ul style={{ listStyle: "none", padding: 0 }}>
           <li style={{ margin: "15px 0" }}>
-            <Link to="/add-course" style={{ color: "#fff", textDecoration: "none" }}>
+            <Link to="/courses" style={{ color: "#fff", textDecoration: "none" }}>
               ➕ Add Courses
             </Link>
           </li>
@@ -29,7 +30,7 @@ const Admin = () => {
             </Link>
           </li>
           <li style={{ margin: "15px 0" }}>
-            <Link to="/add-lesson" style={{ color: "#fff", textDecoration: "none" }}>
+            <Link to="/lessons" style={{ color: "#fff", textDecoration: "none" }}>
               📝 Add Lessons
             </Link>
           </li>

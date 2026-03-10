@@ -11,6 +11,8 @@ import Admin from "./components/Admin.jsx";
 import User from "./components/User.jsx";
 
 import Login from "./pages/Login.jsx";
+import Courses from "./pages/Courses.jsx";
+import Lessons from "./pages/Lessons.jsx";
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
         <Route path='/Login' element={<Login/>}/>
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/user' element={<User/>}/>
+        <Route path="/courses" element={<Courses/>}/>
+        <Route path='/lessons' element={<Lessons/>}/>
       </Routes>
 
     </Router>
