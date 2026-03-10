@@ -1,0 +1,139 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;   
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 800px; 
+  gap: 40px;                
+  height: 100vh;
+  background: url("https://t3.ftcdn.net/jpg/04/22/94/62/360_F_422946225_fwALKxPJg5HtQMkcb5DVuyCWPYSMNH3s.jpg") no-repeat center center/cover;
+  position: relative;
+  width: 100vw;
+}
+.login-title{
+  color: rgb(254, 255, 254);
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 0;
+}
+
+.login-form {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.85); 
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.login-form h2 {
+    color:white;
+    margin-bottom:40px;
+  /* text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  gap:50px; */
+  
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background: #0073e6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: #005bb5;
+}
+
+/* Tablet view */
+@media (max-width: 1024px) {
+  .login-container {
+    padding-right: 0;       /* remove fixed right padding */
+    justify-content: center; /* center align */
+    gap: 30px;
+  }
+
+  .login-form {
+    width: 300px;           /* slightly smaller form */
+  }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .login-container {
+    padding-right: 0;       /* no horizontal push */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;          /* add breathing space */
+  }
+
+  .login-form {
+    width: 90%;             /* full width form */
+    max-width: 320px;       /* limit max size */
+  }
+
+  .login-title {
+    font-size: 24px;        /* smaller title */
+    text-align: center;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .login-form {
+    width: 100%;            /* take full width */
+    padding: 20px;          /* reduce padding */
+  }
+
+  .login-form h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .form-group input {
+    padding: 8px;
+  }
+
+  .login-btn {
+    padding: 8px;
+    font-size: 14px;
+  }
+}

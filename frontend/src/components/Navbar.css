@@ -1,15 +1,32 @@
 
 
+html, body{
+  width:100%;
+  overflow-x:hidden;
+}
+
 .logo-img {
   height: 65px;   
   width: auto;
 }
 
-.nav-center {
-  display: flex;
-  justify-content: center;
-  gap: 25px; 
+@media (max-width:768px){
+  .logo-img{
+    height:40px;
+  }
 }
+.nav-center{
+  gap:25px;
+}
+
+@media (max-width:991px){
+  .nav-center{
+    flex-direction:column;
+    gap:10px;
+    margin-top:10px;
+  }
+}
+
 
 .nav-center .nav-link {
   font-size: 1rem;

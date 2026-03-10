@@ -2,21 +2,36 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Navbar from "./components/Navbar.jsx"
 import Footer from "./components/Footer.jsx"
 import Swiper from "./components/Swiper.jsx"
 import CourseList from './components/Cards.jsx'
+import Admin from "./components/Admin.jsx";
+import User from "./components/User.jsx";
+
+import Login from "./pages/Login.jsx";
+
 function App() {
 
   return (
-    <>
-      <Navbar />
-      <br/><br/><br/>
-      <Swiper/>
-      <br/>
-      <CourseList/>
-      <Footer/>
-    </>
+    <Router>
+      
+      <Routes>
+        <Route path="/" element={
+         <>
+          <Navbar /><br/><br/><br/>
+          <Swiper/><br/>
+          <CourseList/>
+          <Footer/>
+         </>
+        }/>
+        <Route path='/Login' element={<Login/>}/>
+        <Route path='/admin' element={<Admin/>}/>
+        <Route path='/user' element={<User/>}/>
+      </Routes>
+
+    </Router>
   )
 }
 

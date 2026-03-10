@@ -3,6 +3,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import "./Navbar.css"; 
+import Login from "../pages/Login.jsx";
 
 const AppNavbar = () => {
   return (
