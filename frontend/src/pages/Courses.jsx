@@ -24,18 +24,23 @@ const Courses = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData({ ...formData, image: reader.result }); 
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newCourse = {
-      ...formData,
-      id: Date.now(), // unique id
-    };
-
-    const updatedCourses = [...courses, newCourse];
-
+    const updatedCourses = [...courses, formData];
     setCourses(updatedCourses);
-
     localStorage.setItem("courses", JSON.stringify(updatedCourses));
 
     alert("Course added successfully!");
@@ -84,23 +89,27 @@ const Courses = () => {
             name="duration"
             value={formData.duration}
             onChange={handleChange}
-            placeholder="e.g. 5 weeks"
+            placeholder="e.g. 2 hours"
             required
             style={{ width: "100%", padding: "8px" }}
           />
         </div>
 
         <div style={{ marginBottom: "15px" }}>
-          <label>Image URL</label>
+          <label>Upload Image</label>
           <input
-            type="url"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            placeholder="https://example.com/image.jpg"
-            required
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
             style={{ width: "100%", padding: "8px" }}
           />
+          {formData.image && (
+            <img
+              src={formData.image}
+              alt="Preview"
+              style={{ marginTop: "10px", width: "120px", borderRadius: "5px" }}
+            />
+          )}
         </div>
 
         <button
@@ -116,6 +125,37 @@ const Courses = () => {
           Add Course
         </button>
       </form>
+
+      <h3 style={{ marginTop: "40px" }}>Courses List</h3>
+      {courses.length === 0 && <p>No courses added yet.</p>}
+
+      {courses.map((course, index) => (
+        <div
+          key={index}
+          style={{
+            border: "1px solid #ddd",
+            padding: "15px",
+            marginBottom: "10px",
+            borderRadius: "5px",
+            display: "flex",
+            gap: "15px",
+            alignItems: "center",
+          }}
+        >
+          {course.image && (
+            <img
+              src={course.image}
+              alt={course.title}
+              style={{ width: "80px", borderRadius: "5px" }}
+            />
+          )}
+          <div>
+            <h4>{course.title}</h4>
+            <p>Instructor: {course.instructor}</p>
+            <p>Duration: {course.duration}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

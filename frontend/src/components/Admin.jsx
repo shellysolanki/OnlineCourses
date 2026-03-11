@@ -3,6 +3,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import courses from "../pages/Courses.jsx";
+import CourseAdminList from "../pages/DisplayCourseAdmin.jsx";
 
 const Admin = () => {
   return (
@@ -25,7 +26,7 @@ const Admin = () => {
             </Link>
           </li>
           <li style={{ margin: "15px 0" }}>
-            <Link to="/course-list" style={{ color: "#fff", textDecoration: "none" }}>
+            <Link to="/showcourses" style={{ color: "#fff", textDecoration: "none" }}>
               📚 Course List Management
             </Link>
           </li>
