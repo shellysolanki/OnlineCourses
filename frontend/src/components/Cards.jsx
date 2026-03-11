@@ -1,7 +1,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./Cards.css";
+import CardDetail from "../pages/CardDetail.jsx";
 
 const defaultCourses = [
   {
@@ -43,14 +45,24 @@ const defaultCourses = [
 
 function CourseList() {
   const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
-    
+    const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];   
     const mergedCourses = [...defaultCourses, ...storedCourses];
-
     setCourses(mergedCourses);
   }, []);
+
+  const handleEnroll = (course) => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setSelectedCourse(course);
+    } else {
+      alert("please login to enroll");
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -65,12 +77,15 @@ function CourseList() {
                   Instructor: {course.instructor}
                 </Card.Subtitle>
                 <Card.Text>Duration: {course.duration}</Card.Text>
-                <Button variant="primary">Enroll</Button>
+                <Button variant="primary" onClick={() => handleEnroll(course)}>Enroll</Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
+      {selectedCourse && (
+        <CardDetail course={selectedCourse} onClose={() => setSelectedCourse(null)} />
+      )}
     </div>
   );
 }
