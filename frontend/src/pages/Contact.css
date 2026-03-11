@@ -1,0 +1,52 @@
+
+.contact-container {
+  height: 100vh;
+  background-image: url("https://cdn.prod.website-files.com/65cfc8641cecc667c97dc5dc/661d49dd4fa72f3790ba9177_contactus.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width:100vw;
+}
+
+.contact-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  width: 350px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.contact-form textarea {
+  height: 100px;
+}
+
+.contact-form button {
+  padding: 10px;
+  border: none;
+  background: #ff7a00;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: #ff5500;
+}

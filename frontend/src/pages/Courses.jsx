@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 const Courses = () => {
@@ -18,22 +17,28 @@ const Courses = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+
+    setFormData({
+      ...formData,
       [name]: value,
-    }));
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const updatedCourses = [...courses, formData];
+    const newCourse = {
+      ...formData,
+      id: Date.now(), // unique id
+    };
+
+    const updatedCourses = [...courses, newCourse];
 
     setCourses(updatedCourses);
-    
+
     localStorage.setItem("courses", JSON.stringify(updatedCourses));
 
-    alert("Course submitted successfully!");
+    alert("Course added successfully!");
 
     setFormData({
       title: "",
@@ -44,8 +49,8 @@ const Courses = () => {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-      <h2>Add New Course</h2>
+    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
+      <h2>Add Course</h2>
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "15px" }}>
@@ -79,8 +84,8 @@ const Courses = () => {
             name="duration"
             value={formData.duration}
             onChange={handleChange}
-            required
             placeholder="e.g. 5 weeks"
+            required
             style={{ width: "100%", padding: "8px" }}
           />
         </div>
@@ -92,8 +97,8 @@ const Courses = () => {
             name="image"
             value={formData.image}
             onChange={handleChange}
-            required
             placeholder="https://example.com/image.jpg"
+            required
             style={{ width: "100%", padding: "8px" }}
           />
         </div>
@@ -101,14 +106,14 @@ const Courses = () => {
         <button
           type="submit"
           style={{
-            backgroundColor: "#4CAF50",
+            background: "#4CAF50",
             color: "white",
             padding: "10px 20px",
             border: "none",
             cursor: "pointer",
           }}
         >
-          Save Course
+          Add Course
         </button>
       </form>
     </div>

@@ -13,6 +13,9 @@ import User from "./components/User.jsx";
 import Login from "./pages/Login.jsx";
 import Courses from "./pages/Courses.jsx";
 import Lessons from "./pages/Lessons.jsx";
+import AboutPage from "./pages/About.jsx";
+import Contact from "./pages/Contact.jsx";
+import CourseAdminList from "./pages/DisplayCourseAdmin.jsx";
 
 function App() {
 
@@ -33,6 +36,10 @@ function App() {
         <Route path='/user' element={<User/>}/>
         <Route path="/courses" element={<Courses/>}/>
         <Route path='/lessons' element={<Lessons/>}/>
+        <Route path='/courselist' element={<CourseList/>}/>
+        <Route path='/about' element={<AboutPage/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/course-list" element={<CourseAdminList/>}/>
       </Routes>
 
     </Router>

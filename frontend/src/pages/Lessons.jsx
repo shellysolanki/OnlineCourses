@@ -9,7 +9,6 @@ const Lessons = () => {
     video: "",
   });
 
-  // Load lessons from localStorage
   useEffect(() => {
     const storedLessons = JSON.parse(localStorage.getItem("lessons")) || [];
     setLessons(storedLessons);
@@ -29,7 +28,7 @@ const Lessons = () => {
 
     const updatedLessons = [...lessons, formData];
 
-    setLessons(updatedLessons);
+    setLessons(updatedLessons); 
 
     localStorage.setItem("lessons", JSON.stringify(updatedLessons));
 
@@ -99,13 +98,12 @@ const Lessons = () => {
         </button>
       </form>
 
-      {/* Display Lessons */}
 
-      <h3 style={{ marginTop: "40px" }}>Lessons List</h3>
+      {/* <h3 style={{ marginTop: "40px" }}>Lessons List</h3>
 
       {lessons.map((lesson, index) => (
         <div
-          key={index}
+          key={index} 
           style={{
             border: "1px solid #ddd",
             padding: "15px",
@@ -119,7 +117,10 @@ const Lessons = () => {
             Watch Video
           </a>
         </div>
-      ))}
+      ))} */}
+
+
+
     </div>
   );
 };

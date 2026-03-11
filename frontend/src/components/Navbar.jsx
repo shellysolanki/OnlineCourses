@@ -3,7 +3,9 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import "./Navbar.css"; 
+import CardList from "./Cards.jsx";
 import Login from "../pages/Login.jsx";
+import AboutPage from "../pages/About.jsx";
 
 const AppNavbar = () => {
   return (
@@ -25,7 +27,7 @@ const AppNavbar = () => {
         
           <Nav className="mx-auto nav-center">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/courses">Courses</Nav.Link>
+            <Nav.Link href="/courselist">Courses</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/contact">Contact</Nav.Link>
           </Nav>

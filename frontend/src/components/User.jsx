@@ -1,10 +1,18 @@
+
 import React, { useEffect, useState } from "react";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
-
   const [activePage, setActivePage] = useState("courses");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -14,54 +22,67 @@ const UserDashboard = () => {
     setCourses(savedCourses);
   }, []);
 
+  const sidebar = (
+    <div
+      style={{
+        width: isMobile ? "100%" : "250px",
+        background: "#1f2937",
+        color: "white",
+        padding: "30px",
+        position: isMobile ? "absolute" : "relative",
+        top: 0,
+        left: isMobile ? (showSidebar ? 0 : "-100%") : 0,
+        height: "100vh",
+        transition: "left 0.3s",
+        zIndex: 1000,
+      }}
+    >
+      <h2>User Panel</h2>
+      <ul style={{ listStyle: "none", padding: 0, marginTop: "20px" }}>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("courses"); setShowSidebar(false);}}>
+          Course Listing
+        </li>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("paid"); setShowSidebar(false);}}>
+          Paid Courses
+        </li>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("details"); setShowSidebar(false);}}>
+          Course Details
+        </li>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("lessons"); setShowSidebar(false);}}>
+          Lesson Videos
+        </li>
+      </ul>
+    </div>
+  );
+
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", minHeight: "100vh", position: "relative" }}>
       
-      <div
-        style={{
-          width: "290px",
-          background: "#1f2937",
-          color: "white",
-          padding: "50px",
-        }}
-      >
-        <br/>
-        <h2>User Panel</h2><br/>
+      {isMobile && (
+        <button
+          onClick={() => setShowSidebar(!showSidebar)}
+          style={{
+            position: "fixed",
+            top: 20,
+            left: 20,
+            zIndex: 1100,
+            background: "#1f2937",
+            color: "white",
+            border: "none",
+            padding: "10px 15px",
+            fontSize: "20px",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          ☰
+        </button>
+      )}
 
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          <li
-            style={{ cursor: "pointer", margin: "10px 0" }}
-            onClick={() => setActivePage("courses")}
-          >
-            Course Listing
-          </li>
+      {sidebar}
 
-          <li
-            style={{ cursor: "pointer", margin: "10px 0" }}
-            onClick={() => setActivePage("paid")}
-          >
-            Paid Courses
-          </li>
-
-          <li
-            style={{ cursor: "pointer", margin: "10px 0" }}
-            onClick={() => setActivePage("details")}
-          >
-            Course Details
-          </li>
-
-          <li
-            style={{ cursor: "pointer", margin: "10px 0" }}
-            onClick={() => setActivePage("lessons")}
-          >
-            Lesson Videos
-          </li>
-        </ul>
-      </div>
-
-      <div style={{ flex: 1, padding: "20px" }}>
+      <div style={{ flex: 1, padding: "20px", marginLeft: !isMobile ? 0 : 0 }}><br/><br/><br/>
         <h2>User Dashboard</h2>
-
         {user ? (
           <p>
             Welcome, <strong>{user.name}</strong>
@@ -73,11 +94,10 @@ const UserDashboard = () => {
         {activePage === "courses" && (
           <>
             <h3>Available Courses</h3>
-
             {courses.length > 0 ? (
-              <ul>
+              <ul style={{ padding: 0 }}>
                 {courses.map((c, i) => (
-                  <li key={i}>
+                  <li key={i} style={{ marginBottom: "10px" }}>
                     <strong>{c.title}</strong> - {c.description} (${c.price})
                   </li>
                 ))}
@@ -91,21 +111,21 @@ const UserDashboard = () => {
         {activePage === "paid" && (
           <>
             <h3>Paid Courses</h3>
-            <p>User ke purchased courses yaha show honge.</p>
+            <p>No courses purchased yet.</p>
           </>
         )}
 
         {activePage === "details" && (
           <>
             <h3>Course Details</h3>
-            <p>Kisi course ki detailed information yaha show hogi.</p>
+            <p>No details</p>
           </>
         )}
 
         {activePage === "lessons" && (
           <>
             <h3>Lesson Videos</h3>
-            <video width="500" controls>
+            <video style={{ width: "100%", maxWidth: "500px" }} controls>
               <source src="/lesson.mp4" type="video/mp4" />
             </video>
           </>
@@ -116,3 +136,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+

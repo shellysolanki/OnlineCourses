@@ -1,69 +1,72 @@
 
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
-import "./Cards.css"
-const courses = [
+import "./Cards.css";
+
+const defaultCourses = [
   {
     id: 1,
     title: "React Basics",
     instructor: "Jane Doe",
     duration: "4 weeks",
-    image: "https://miro.medium.com/1*WfhViON2evomOK2tw09AuQ.jpeg"
+    image: "https://miro.medium.com/1*WfhViON2evomOK2tw09AuQ.jpeg",
   },
   {
     id: 2,
     title: "Advanced CSS",
     instructor: "John Smith",
     duration: "6 weeks",
-    image: "https://www.thatsoftwaredude.com/images/post/titles/41a043a5-c505-455d-ae09-4d4c5a689c3a.jpg"
+    image: "https://www.thatsoftwaredude.com/images/post/titles/41a043a5-c505-455d-ae09-4d4c5a689c3a.jpg",
   },
   {
     id: 3,
     title: "Node.js Fundamentals",
     instructor: "Alice Johnson",
     duration: "5 weeks",
-    image: "https://nodejs.org/static/images/logo.svg"
+    image: "https://nodejs.org/static/images/logo.svg",
   },
   {
     id: 4,
     title: "Express Fundamentals",
     instructor: "Alice Johnson",
     duration: "7 weeks",
-    image: "https://i.ytimg.com/vi/yB79hoL7svQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBeaU0GAnZFIYuDMKHjERuUay7qXQ"
+    image: "https://i.ytimg.com/vi/yB79hoL7svQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBeaU0GAnZFIYuDMKHjERuUay7qXQ",
   },
   {
     id: 5,
     title: "Javascript Fundamentals",
     instructor: "Alice Johnson",
     duration: "5 weeks",
-    image: "https://i.ytimg.com/vi/XL9Ri8pO68w/maxresdefault.jpg"
-  }
+    image: "https://i.ytimg.com/vi/XL9Ri8pO68w/maxresdefault.jpg",
+  },
 ];
 
 function CourseList() {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
+    
+    const mergedCourses = [...defaultCourses, ...storedCourses];
+
+    setCourses(mergedCourses);
+  }, []);
+
   return (
     <div className="container mt-4">
       <Row>
-        {courses.map((course) => (
-          <Col key={course.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+        {courses.map((course, index) => (
+          <Col key={course.id || index} xs={12} sm={6} md={4} lg={3} className="mb-4">
             <Card>
-              
-              {/* Image */}
-              <Card.Img variant="top" src={course.image} className="course-img"/>
-
+              <Card.Img variant="top" src={course.image} className="course-img" />
               <Card.Body>
                 <Card.Title>{course.title}</Card.Title>
-
                 <Card.Subtitle className="mb-2 text-muted">
                   Instructor: {course.instructor}
                 </Card.Subtitle>
-
                 <Card.Text>Duration: {course.duration}</Card.Text>
-
                 <Button variant="primary">Enroll</Button>
               </Card.Body>
-
             </Card>
           </Col>
         ))}
