@@ -9,6 +9,7 @@ import Swiper from "./components/Swiper.jsx"
 import CourseList from './components/Cards.jsx'
 import Admin from "./components/Admin.jsx";
 import User from "./components/User.jsx";
+import LessonsCard from "./components/LessonCard.jsx";
 
 import Login from "./pages/Login.jsx";
 import Courses from "./pages/Courses.jsx";
@@ -16,6 +17,7 @@ import Lessons from "./pages/Lessons.jsx";
 import AboutPage from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import CourseAdminList from "./pages/DisplayCourseAdmin.jsx";
+
 
 function App() {
 
@@ -27,7 +29,9 @@ function App() {
          <>
           <Navbar /><br/><br/><br/>
           <Swiper/><br/>
-          <CourseList/>
+          <CourseList/><br/>
+          <h1 style={{ textAlign:"center" }}>Lessons</h1>
+          <LessonsCard/><br/>
           <Footer/>
          </>
         }/>
@@ -40,6 +44,7 @@ function App() {
         <Route path='/about' element={<AboutPage/>}/>
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/showcourses" element={<CourseAdminList/>}/>
+
       </Routes>
 
     </Router>

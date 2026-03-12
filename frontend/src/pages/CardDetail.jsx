@@ -12,6 +12,14 @@ function CardDetail({ course, onClose }) {
 const handlePayment = () => {
   const confirmPayment = window.confirm(`Do you want to pay $100 for ${course.title}?`);
   if (confirmPayment) {
+    const paidCourses = JSON.parse(localStorage.getItem("paidCourses")) || [];
+
+    const alreadyPaid = paidCourses.some(c => c.id === course.id);
+    if (!alreadyPaid) {
+      paidCourses.push(course);
+      localStorage.setItem("paidCourses", JSON.stringify(paidCourses));
+    }
+    
     alert(`Payment successful for ${course.title}!`);
     onClose();
   } else {

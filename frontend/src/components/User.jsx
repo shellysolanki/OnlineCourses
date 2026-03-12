@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
   const [courses, setCourses] = useState([]);
+  const [paidCourses, setPaidCourses] = useState([]);
   const [activePage, setActivePage] = useState("courses");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -15,11 +16,14 @@ const UserDashboard = () => {
   }, []);
 
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+    const savedUser = JSON.parse(localStorage.getItem("user")) || { name: "Guest" };
     setUser(savedUser);
 
     const savedCourses = JSON.parse(localStorage.getItem("courses")) || [];
     setCourses(savedCourses);
+
+    const savedPaidCourses = JSON.parse(localStorage.getItem("paidCourses")) || [];
+    setPaidCourses(savedPaidCourses);
   }, []);
 
   const sidebar = (
@@ -39,25 +43,41 @@ const UserDashboard = () => {
     >
       <h2>User Panel</h2>
       <ul style={{ listStyle: "none", padding: 0, marginTop: "20px" }}>
-        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("courses"); setShowSidebar(false);}}>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => { setActivePage("courses"); setShowSidebar(false); }}>
           Course Listing
         </li>
-        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("paid"); setShowSidebar(false);}}>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => { setActivePage("paid"); setShowSidebar(false); }}>
           Paid Courses
         </li>
-        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("details"); setShowSidebar(false);}}>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => { setActivePage("details"); setShowSidebar(false); }}>
           Course Details
         </li>
-        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => {setActivePage("lessons"); setShowSidebar(false);}}>
+        <li style={{ cursor: "pointer", margin: "10px 0" }} onClick={() => { setActivePage("lessons"); setShowSidebar(false); }}>
           Lesson Videos
         </li>
       </ul>
     </div>
   );
 
+  const renderCourses = (courseList, isPaid = false) => {
+    if (courseList.length === 0) {
+      return <p>{isPaid ? "No courses purchased yet." : "No courses available yet."}</p>;
+    }
+
+    return (
+      <ul style={{ padding: 0 }}>
+        {courseList.map((c, i) => (
+          <li key={i} style={{ marginBottom: "10px" }}>
+            <strong>{c.title}</strong>
+            {isPaid ? ` - Instructor: ${c.instructor} - ₹${c.price}` : ` - ${c.description} ($${c.price})`}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", minHeight: "100vh", position: "relative" }}>
-      
       {isMobile && (
         <button
           onClick={() => setShowSidebar(!showSidebar)}
@@ -81,44 +101,28 @@ const UserDashboard = () => {
 
       {sidebar}
 
-      <div style={{ flex: 1, padding: "20px", marginLeft: !isMobile ? 0 : 0 }}><br/><br/><br/>
+      <div style={{ flex: 1, padding: "20px" }}>
         <h2>User Dashboard</h2>
-        {user ? (
-          <p>
-            Welcome, <strong>{user.name}</strong>
-          </p>
-        ) : (
-          <p>No user logged in</p>
-        )}
+        <p>Welcome, <strong>{user?.name || "Guest"}</strong></p>
 
         {activePage === "courses" && (
           <>
             <h3>Available Courses</h3>
-            {courses.length > 0 ? (
-              <ul style={{ padding: 0 }}>
-                {courses.map((c, i) => (
-                  <li key={i} style={{ marginBottom: "10px" }}>
-                    <strong>{c.title}</strong> - {c.description} (${c.price})
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No courses available yet.</p>
-            )}
+            {renderCourses(courses)}
           </>
         )}
 
         {activePage === "paid" && (
           <>
             <h3>Paid Courses</h3>
-            <p>No courses purchased yet.</p>
+            {renderCourses(paidCourses, true)}
           </>
         )}
 
         {activePage === "details" && (
           <>
             <h3>Course Details</h3>
-            <p>No details</p>
+            <p>No details available.</p>
           </>
         )}
 
@@ -136,4 +140,3 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
-
